@@ -1,0 +1,108 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Pool Logger</title>
+<meta http-equiv="refresh" content="30"> 
+</head>
+<body>
+<center>
+<br>
+<FONT FACE="arial">
+<H1><center>POOL LOGGER 2016</H1>
+<H3><center>Previous 24 Hours</H3>
+
+<br>
+
+<img src="http://api.cosm.com/v2/feeds/1347438342/datastreams/Pool_Temperature.png?width=800&height=375&colour=%230000ff&duration=1day&title=WATER%20TEMPERATURE&show_axis_labels=true&detailed_grid=true&g=trur&scale=manual&min=60&max=100&timezone=Pacific%20Time%20(US%20%26%20Canada)" />
+
+<br>
+<br>
+<br>
+
+ <div id='chart_div'></div>
+
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script> 
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript'>
+ 
+    var chart; 
+    var charts;
+    var data;
+ 
+        google.load('visualization', '1', {packages:['gauge']});
+        google.setOnLoadCallback(initChart);
+ 
+    function displayData(point) {
+     
+        data.setValue(0, 0, '°F');
+        data.setValue(0, 1, point);
+        chart.draw(data, options);
+    }
+ 
+    function loadData() {
+        // variable for the data point
+        var p;
+     
+        $.getJSON('https://api.xively.com/v2/feeds/1347438342/datastreams/Pool_Temperature.json?&key=FWu6ICtTkTK1vlEUoMvk1Ru5xIVIlAkLJeHn5zNzdRc3Z3MH&callback=?', function(data) { //Xively
+         
+            // get the data point
+            p = data.current_value; //Xively
+                         
+            if (p) {
+                p = (p/1);
+                displayData(p);
+            }
+        });
+    }
+ 
+    function initChart() {
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Label');
+        data.addColumn('number', 'Value');
+        data.addRows(1);
+             
+        chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+        options = {
+            width: 300, 
+            height: 300, 
+             
+            redFrom: 90, 
+            redTo: 100,
+            redColor: '#ff9933',
+             
+            yellowFrom: 80, 
+            yellowTo: 90,
+            yellowColor: '#33cc33', 
+             
+            greenFrom: 70, 
+            greenTo: 80,
+            greenColor: '#0066ff',
+             
+            minorTicks: 10,
+            majorTicks: 4,
+            min: 70, 
+            max: 100, 
+             
+            animation: {
+                duration: 400, 
+                easing: 'out',
+            },
+        };
+     
+        loadData();
+ 
+        setInterval('loadData()', 15000);
+             
+    }
+</script>
+
+
+
+
+<br>
+<br>
+<br>
+<H5>Copyright © 2016 SJB</H5>
+</FONT> 
+</center>
+
+</body>
