@@ -8,7 +8,7 @@ import datetime
 import requests
 
 FEED_ID = "1347438342"
-API_KEY = "hsvCyBwg6hgQwpGyUYzsz1yqD3CAt0rx8ID8eDcdVssqpvTd"
+API_KEY = "API_KEY_HERE"
 UPDATETIME = 60
 
 # initialize api client
