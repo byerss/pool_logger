@@ -28,9 +28,6 @@ def read_temperature():
    return temperature, crcResult
 
 
-
-
-
 def start():
    print("Initializing...")
    failedCRC = True
@@ -46,27 +43,11 @@ def start():
         time.sleep(2)
 
 
-
-
 # main program entry point - runs continuously updating our datastream with the
 # latest temperature reading
 def run():
   global lastValue
   start()
-
-
-
-
-
-  
-  #degreesF, crcResult = read_temperature()
-  #if crcResult == "YES":  
-  #   floatTemp = float(degreesF)
-  #   lastValue = floatTemp
-  #else:
-  #   print "Failed CRC at Boot!"
-  #   start()
-
 
   while True:
     degreesF, crcResult = read_temperature()
@@ -107,14 +88,11 @@ def run():
          number_of_rows = cursor.execute(sql)
          db.commit()   #Needed to commit changes
          db.close()
-         time.sleep(1)
+         time.sleep(UPDATETIME)
+
     else:
      print("crc Result: NO")
      time.sleep(1)    
-
-
-
-#dafuq9
 
 
 run()
